@@ -16,3 +16,8 @@ def receive_data(request):
         data = SensorData.objects.all().order_by('-timestamp')
         serializer = SensorDataSerializer(data, many=True)
         return Response(serializer.data)
+
+@api_view(['DELETE'])
+def clear_sensor_data(request):
+    SensorData.objects.all().delete()
+    return Response({"message": "All sensor data cleared."})
